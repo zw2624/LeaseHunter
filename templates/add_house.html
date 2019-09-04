@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+    <body>
+        <form method="post", action="{% url 'save' %}">
+        {% csrf_token %}
+        {{ house_form.as_p }}
+        <button type="submit">Add this house to database</button>
+        </form>
+    </body>
+
+
+
+{% endblock %}

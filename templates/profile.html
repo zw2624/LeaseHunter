@@ -1,0 +1,80 @@
+<!-- templates/home.html -->
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+    <body>
+    <h1 class="text-center titulo">My Home Page</h1>
+
+    <div class="row">
+        <div class="col-3">
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab"
+                   aria-controls="v-pills-home" aria-selected="true">Profile</a>
+                <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab"
+                   aria-controls="v-pills-profile" aria-selected="false">My Favorites</a>
+                <a class="nav-link" id="v-pills-add-tab" data-toggle="pill" href="#v-pills-add" role="tab"
+                   aria-controls="v-pills-add" aria-selected="false">My Source</a>
+                <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab"
+                   aria-controls="v-pills-messages" aria-selected="false">Saved Analysis</a>
+                <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab"
+                   aria-controls="v-pills-settings" aria-selected="false">Settings</a>
+            </div>
+        </div>
+        <div class="col-9">
+            <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
+                     aria-labelledby="v-pills-home-tab">
+                    <form method="post", action="">
+                        {% csrf_token %}
+                        {{ user_form.as_p }}
+                        {{ profile_form.as_p }}
+                        <button type="submit">Save changes</button>
+                    </form>
+                </div>
+                <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                    {% for house in my_favorite %}
+                        <p>
+                        <form method="post" action="{% url 'detail' %}">
+                            {% csrf_token %}
+                            <li>{{ house.name }} - {{ house.address }}</li>
+                            <button name='botton' class="btn btn-outline-primary" type='submit'>check detail</button>
+                            <input name='id' type='hidden' value={{ house.id }}>
+                        </form>
+                        </p>
+                    {% endfor %}
+                </div>
+                <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                    ...
+                </div>
+                <div class="tab-pane fade" id="v-pills-add" role="tabpanel" aria-labelledby="v-pills-add-tab">
+                    {% for house in my_house %}
+                        <p>
+                        <form method="post" action="{% url 'detail' %}">
+                            {% csrf_token %}
+                            <li>{{ house.name }} - {{ house.address }}</li>
+                            <button name='botton' class="btn btn-outline-primary" type='submit'>check detail</button>
+                            <input name='id' type='hidden' value={{ house.id }}>
+                        </form>
+                        </p>
+                    {% endfor %}
+
+                    <form method="POST" action="{% url 'add' %}">
+                        {% csrf_token %}
+                        <button type="submit"> Add a housing source</button>
+                    </form>
+                </div>
+                <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+                    ...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </body>
+
+
+
+{% endblock %}

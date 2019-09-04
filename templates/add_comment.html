@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Comment{% endblock %}
+
+{% block content %}
+
+    <body>
+        <form method="post", action="{% url 'save_comment' %}">
+        {% csrf_token %}
+        {{ comment_form.as_p }}
+        <button type="submit">Save Comment</button>
+            <input name="houseID" type="hidden" value={{id}}}>
+        </form>
+    </body>
+
+
+{% endblock %}

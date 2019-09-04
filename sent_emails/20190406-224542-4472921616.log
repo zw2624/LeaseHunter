@@ -1,0 +1,26 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Subject: Password reset on 127.0.0.1:8000
+From: webmaster@localhost
+To: zwang199@illinois.edu
+Date: Sat, 06 Apr 2019 22:45:42 -0000
+Message-ID: 
+ <155459074227.19541.10252950785363881731@wirelessprv-10-195-44-47.near.illinois.edu>
+
+
+You're receiving this email because you requested a password reset for your user account at 127.0.0.1:8000.
+
+Please go to the following page and choose a new password:
+
+http://127.0.0.1:8000/accounts/reset/MQ/559-d97d24abde6395fb7ba8/
+
+Your username, in case you've forgotten: zwang199
+
+Thanks for using our site!
+
+The 127.0.0.1:8000 team
+
+
+
+-------------------------------------------------------------------------------

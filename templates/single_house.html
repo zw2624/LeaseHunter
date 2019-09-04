@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block extra_head %}
+    <style>
+
+    table {
+        width: 100%;
+    }
+
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+
+    </style>
+{% endblock %}
+
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <p>
+    Information Page for {{house.name}}
+    </p>
+
+<table>
+                <tr>
+                    <th>City</th>
+                    <th>Address</th>
+                    <th>Unit</th>
+                    <th>Bed</th>
+                    <th>Bath</th>
+                    <th>Rent</th>
+                    <th>Deposit</th>
+                    <th>Availability</th>
+                    <th>Contact</th>
+                    <th></th>
+                </tr>
+                    <tr>
+                        <th>{{ house.city }}</th>
+                        <th>{{ house.address }}</th>
+                        <th>{{ house.unit }}</th>
+                        <th>{{ house.beds }}</th>
+                        <th>{{ house.baths }}</th>
+                        <th>{{ house.rent }}</th>
+                        <th>{{ house.deposit }}</th>
+                        <th>{{ house.available }}</th>
+                        <th>{{ house.contact }}</th>
+                        <th>
+                            {% if like %}
+                                <form method="post" action="{% url 'unlike' %}">
+                                {% csrf_token %}
+                                <button class="btn btn-outline-primary"> unLike </button>
+                                <input name='id' type='hidden' value={{ house.id }}>
+                                {% else %}
+                                <form method="post" action="{% url 'like' %}">
+                                {% csrf_token %}
+                                <button class="btn btn-outline-primary"> Like </button>
+                                <input name='id' type='hidden' value={{ house.id }}>
+                                </form>
+                            {% endif %}
+
+
+                        </th>
+                    </tr>
+            </table>
+
+    {%if is_creator %}
+            <p>
+                <form method='GET' action='{% url 'change' %}'>
+                    {% csrf_token %}
+                    <button class="btn btn-outline-primary"> change </button>
+                    <input name='houseID' type='hidden' value={{ house.id }}>
+                </form>
+            </p>
+            <p>
+                <form method='GET' action='{% url 'delete' %}'>
+                    {% csrf_token %}
+                    <button class="btn btn-outline-primary"> delete </button>
+                    <input name='houseID' type='hidden' value={{ house.id }}>
+                </form>
+            </p>
+    {%endif%}
+
+    <h2>
+    Description
+    </h2>
+    <p>{{ house.desciption }}</p>
+
+
+
+    <h3>Comments: </h3>
+    {% for comment in house.comments.all %}
+            <p>
+               " {{ comment.text }} " BY {{ comment.created_by }}
+            </p>
+    {% endfor %}
+
+    <p>
+         <form method="POST" action="{% url 'add_comment' %}">
+         {% csrf_token %}
+            <button type="submit">Add Comment</button>
+            <input name='houseID' type='hidden' value={{house.id}} >
+        </form>
+    </p>
+
+{% endblock %}
